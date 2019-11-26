@@ -281,4 +281,7 @@ lint/outputs/
 lint/tmp/
 # lint/reports/
 
+#Pods
+Pods/
+
 # End of https://www.gitignore.io/api/reactnative
