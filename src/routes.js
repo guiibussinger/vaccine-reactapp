@@ -1,14 +1,28 @@
 import { createStackNavigator } from 'react-navigation-stack';
+import { createDrawerNavigator } from 'react-navigation-drawer';
 
 import HomeScreen from './screens/HomeScreen';
 
-const StackNavigator = createStackNavigator(
+const StackHome = createStackNavigator(
   {
-    Home: { screen: HomeScreen }
+    Home: {
+      screen: HomeScreen
+    }
   },
   {
     initialRouteName: 'Home'
   }
 );
 
-export default StackNavigator;
+const DrawerNavigation = createDrawerNavigator(
+  {
+    Home: {
+      screen: StackHome
+    }
+  },
+  {
+    initialRouteName: 'Home'
+  }
+);
+
+export default DrawerNavigation;

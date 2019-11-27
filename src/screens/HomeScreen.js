@@ -6,7 +6,7 @@ import Icon from 'react-native-ionicons';
 import Label from '../components/Label';
 import VaccineCard from '../components/VaccineCard';
 
-const HomeScreen = () => (
+const HomeScreen = ({ navigation }) => (
   <StyledHome>
     <StyledScroll>
       <StyledScrollTitleRow>
@@ -14,7 +14,7 @@ const HomeScreen = () => (
           <Label fontSize={24} marginRight={10}>
             Últimas vacinas
           </Label>
-          <Icon name="water" size={30} color={'#f05454'} />
+          <Icon name="water" size={30} color="#f05454" />
         </View>
         <TouchableOpacity>
           <Label>Ver Todas</Label>
@@ -27,14 +27,22 @@ const HomeScreen = () => (
   </StyledHome>
 );
 
-HomeScreen.navigationOptions = {
+HomeScreen.navigationOptions = ({ navigation }) => ({
   title: 'Cartão de Vacinas',
   headerRight: () => (
     <StyledHeaderButton>
       <Icon name="add" size={40} />
     </StyledHeaderButton>
-  )
-};
+  ),
+  headerLeft: () => (
+    <StyledHeaderButtonLeft onPress={() => navigation.toggleDrawer()}>
+      <Icon name="menu" size={35} />
+    </StyledHeaderButtonLeft>
+  ),
+  headerStyle: {
+    backgroundColor: '#70a6ff'
+  }
+});
 
 const StyledHome = styled.View`
   flex: 1;
@@ -44,6 +52,10 @@ const StyledHome = styled.View`
 const StyledHeaderButton = styled.TouchableOpacity`
   margin-right: 10;
   margin-bottom: 10;
+`;
+
+const StyledHeaderButtonLeft = styled.TouchableOpacity`
+  margin-left: 10;
 `;
 
 const StyledScroll = styled.ScrollView`

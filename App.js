@@ -2,9 +2,9 @@ import React from 'react';
 import { createAppContainer } from 'react-navigation';
 import 'react-native-gesture-handler';
 
-import StackNavigator from './src/routes';
+import DrawerNavigation from './src/routes';
 
-const AppContainer = createAppContainer(StackNavigator);
+const AppContainer = createAppContainer(DrawerNavigation);
 
 const App = () => <AppContainer />;
 

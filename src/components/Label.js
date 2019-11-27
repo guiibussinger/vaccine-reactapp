@@ -5,7 +5,7 @@ const Label = ({ children, ...props }) => <StyledLabel {...props}>{children}</St
 
 const StyledLabel = styled.Text`
   font-size: ${({ fontSize }) => fontSize || 14};
-  color: ${({ color }) => color || 'black'};
+  color: ${({ color }) => color || '#545454'};
   font-weight: ${({ fontWeight }) => fontWeight || 'normal'};
   text-align: ${({ textAlign }) => textAlign || 'left'};
   margin-top: ${({ marginTop }) => marginTop || 0};
