@@ -19,17 +19,18 @@ const VaccineCard = () => (
       zIndex: 24
     }}
   >
-    <Label textSize={24} fontWeight="600">
+    <Label fontSize={24} fontWeight="600">
       Febre Amarela
     </Label>
-    <Label textSize={20}>{moment().format('DD/MM/YY')}</Label>
-    <Label textSize={24}>Febre Amarela</Label>
+    <Label fontSize={16}>{moment().format('DD/MM/YY')}</Label>
+    <Label fontSize={16}>2ª dosagem</Label>
   </StyledCard>
 );
 
 const StyledCard = styled.TouchableOpacity`
-  height: 110;
   flex: 1;
+  height: 110;
+  justify-content: space-evenly;
   margin-right: 20;
   margin-bottom: 15;
   margin-left: 20;

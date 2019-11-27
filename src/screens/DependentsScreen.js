@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import { View } from 'react-native';
 import styled from 'styled-components/native';
 import Icon from 'react-native-ionicons';
 
@@ -12,13 +12,10 @@ const HomeScreen = () => (
       <StyledScrollTitleRow>
         <View style={{ flexDirection: 'row' }}>
           <Label fontSize={24} marginRight={10}>
-            Últimas vacinas
+            Dependentes
           </Label>
-          <Icon name="water" size={30} color="#f05454" />
+          <Icon name="people" size={30} color="#545454" />
         </View>
-        <TouchableOpacity>
-          <Label>Ver Todas</Label>
-        </TouchableOpacity>
       </StyledScrollTitleRow>
       <VaccineCard />
       <VaccineCard />
@@ -28,9 +25,9 @@ const HomeScreen = () => (
 );
 
 HomeScreen.navigationOptions = ({ navigation }) => ({
-  title: 'Cartão de Vacinas',
+  title: 'Dependentes',
   headerRight: () => (
-    <StyledHeaderButton onPress={() => navigation.navigate('NewVaccine')}>
+    <StyledHeaderButton onPress={() => navigation.navigate('NewDependent')}>
       <Icon name="add" size={40} />
     </StyledHeaderButton>
   ),
