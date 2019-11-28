@@ -1,28 +1,46 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View } from 'react-native';
 import styled from 'styled-components/native';
 import Icon from 'react-native-ionicons';
+import { NavigationEvents } from 'react-navigation';
 
 import Label from '../components/Label';
-import VaccineCard from '../components/VaccineCard';
+import DependentCard from '../components/DependentCard';
 
-const HomeScreen = () => (
-  <StyledHome>
-    <StyledScroll>
-      <StyledScrollTitleRow>
-        <View style={{ flexDirection: 'row' }}>
-          <Label fontSize={24} marginRight={10}>
-            Dependentes
-          </Label>
-          <Icon name="people" size={30} color="#545454" />
-        </View>
-      </StyledScrollTitleRow>
-      <VaccineCard />
-      <VaccineCard />
-      <VaccineCard />
-    </StyledScroll>
-  </StyledHome>
-);
+const HomeScreen = () => {
+  const [dependents, setDependents] = useState([]);
+
+  const getDependents = () => {
+    return fetch('http://localhost:8000/api/person', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Cache-Control': 'no-cache'
+      }
+    })
+      .then(response => response.json())
+      .then(responseJson => setDependents(responseJson));
+  };
+
+  return (
+    <StyledHome>
+      <StyledScroll>
+        <StyledScrollTitleRow>
+          <View style={{ flexDirection: 'row' }}>
+            <Label fontSize={24} marginRight={10}>
+              Dependentes
+            </Label>
+            <Icon name="people" size={30} color="#545454" />
+          </View>
+        </StyledScrollTitleRow>
+        {dependents.map((item, index) => (
+          <DependentCard key={index} item={item} />
+        ))}
+      </StyledScroll>
+      <NavigationEvents onDidFocus={() => getDependents()} />
+    </StyledHome>
+  );
+};
 
 HomeScreen.navigationOptions = ({ navigation }) => ({
   title: 'Dependentes',

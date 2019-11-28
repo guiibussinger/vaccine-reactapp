@@ -6,26 +6,48 @@ import { maskJs } from 'mask-js';
 import Label from '../components/Label';
 import StyledInput from '../components/StyledInput';
 
-const NewDependent = () => {
-  const [vaccine, setVaccine] = useState({
+const NewDependent = ({ navigation }) => {
+  const [dependent, setDependent] = useState({
     name: '',
-    date: '',
-    dosage: ''
+    birth: '',
+    document: ''
   });
 
   const setValue = (field, value) => {
-    setVaccine({
-      ...vaccine,
+    setDependent({
+      ...dependent,
       [field]: value
     });
   };
-  const { name, date, dosage } = vaccine;
+
+  const onCreate = () => {
+    const { name, birth, document } = dependent;
+    if (!name || !birth || !document) return alert('Preencha todos os campos!');
+    return fetch('http://localhost:8000/api/person', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Cache-Control': 'no-cache'
+      },
+      body: JSON.stringify({
+        ...dependent,
+        birth: new Date(birth.substring(6), birth.substring(3, 5), birth.substring(0, 2))
+      })
+    }).then(() => navigation.pop());
+  };
+
+  const { name, birth, document } = dependent;
 
   return (
     <StyledHome>
-      <StyledInput title="Nome da dependente" value={name} onChange={text => setValue('name', text)} />
-      <StyledInput title="Nascimento" value={maskJs('99-99-99', date)} onChange={text => setValue('date', text)} />
-      <StyledButton>
+      <StyledInput title="Nome do dependente" value={name} onChange={text => setValue('name', text)} />
+      <StyledInput title="Nascimento" value={maskJs('99-99-9999', birth)} onChange={text => setValue('birth', text)} />
+      <StyledInput
+        title="Documento (CPF)"
+        value={maskJs('999.999.999-99', document)}
+        onChange={text => setValue('document', text)}
+      />
+      <StyledButton onPress={onCreate}>
         <Label color="white">Salvar</Label>
       </StyledButton>
     </StyledHome>

@@ -6,7 +6,7 @@ import { maskJs } from 'mask-js';
 import Label from '../components/Label';
 import StyledInput from '../components/StyledInput';
 
-const NewVaccine = () => {
+const NewVaccine = ({ navigation }) => {
   const [vaccine, setVaccine] = useState({
     name: '',
     date: '',
@@ -19,13 +19,30 @@ const NewVaccine = () => {
       [field]: value
     });
   };
+
+  const onCreate = () => {
+    const { name, date, dosage } = vaccine;
+    if (!name || !date || !dosage) return alert('Preencha todos os campos!');
+    return fetch('http://localhost:8000/api/vaccine', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Cache-Control': 'no-cache'
+      },
+      body: JSON.stringify({
+        ...vaccine,
+        date: new Date(date.substring(6), date.substring(3, 5), date.substring(0, 2))
+      })
+    }).then(() => navigation.pop());
+  };
+
   const { name, date, dosage } = vaccine;
   return (
     <StyledHome>
       <StyledInput title="Nome da vacina" value={name} onChange={text => setValue('name', text)} />
-      <StyledInput title="Data" value={maskJs('99-99-99', date)} onChange={text => setValue('date', text)} />
-      <StyledInput title="Dosagem" value={dosage} onChange={text => setValue('dosage', text)} />
-      <StyledButton>
+      <StyledInput title="Data" value={maskJs('99-99-9999', date)} onChange={text => setValue('date', text)} />
+      <StyledInput title="Dosagem" value={maskJs('999', dosage)} onChange={text => setValue('dosage', text)} />
+      <StyledButton onPress={onCreate}>
         <Label color="white">Salvar</Label>
       </StyledButton>
     </StyledHome>
