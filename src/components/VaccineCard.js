@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components/native';
 import moment from 'moment';
+import { withNavigation } from 'react-navigation';
 
 import Label from '../components/Label';
 
-const VaccineCard = ({ item: { name, date, dosage } }) => (
+const VaccineCard = ({ item, navigation }) => (
   <StyledCard
     style={{
       shadowColor: '#000',
@@ -18,12 +19,13 @@ const VaccineCard = ({ item: { name, date, dosage } }) => (
       elevation: 24,
       zIndex: 24
     }}
+    onPress={() => navigation.navigate('NewVaccine', { vaccine: item })}
   >
     <Label fontSize={24} fontWeight="600">
-      {name}
+      {item.name}
     </Label>
-    <Label fontSize={16}>{moment(date).format('DD/MM/YYYY')}</Label>
-    <Label fontSize={16}>{dosage || 1}ª dose</Label>
+    <Label fontSize={16}>{moment(item.date).format('DD/MM/YYYY')}</Label>
+    <Label fontSize={16}>{item.dosage || 1}ª dose</Label>
   </StyledCard>
 );
 
@@ -42,4 +44,4 @@ const StyledCard = styled.TouchableOpacity`
   background-color: white;
 `;
 
-export default VaccineCard;
+export default withNavigation(VaccineCard);
